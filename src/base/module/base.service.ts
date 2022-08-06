@@ -1,5 +1,5 @@
 import { BaseRepository } from './base.repository';
-
+import { CollectionDto } from '@forlagshuset/nestjs-mongoose-paginate';
 export abstract class BaseService<
   Base,
   BaseDocument,
@@ -14,8 +14,8 @@ export abstract class BaseService<
 > {
   constructor(private readonly superBaseRepository: SuperBaseRepository) {}
 
-  findAll(filter: any) {
-    return this.superBaseRepository.findAll(filter);
+  findAll(filter: CollectionDto) {
+    return this.superBaseRepository.paginate(filter);
   }
 
   async findOne(type: string) {

@@ -1,3 +1,8 @@
+import {
+  CollectionDto,
+  CollectionResponse,
+  DocumentCollector,
+} from '@forlagshuset/nestjs-mongoose-paginate';
 import { FilterQuery, Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 
@@ -33,5 +38,14 @@ export abstract class BaseRepository<
 
   remove(id: string): Promise<BaseDocument> {
     return this.baseModel.findByIdAndRemove(id).exec();
+  }
+
+  paginate(
+    collectionDto: CollectionDto,
+  ): Promise<CollectionResponse<BaseDocument>> {
+    console.log(collectionDto);
+
+    const collector = new DocumentCollector<BaseDocument>(this.baseModel);
+    return collector.find(collectionDto);
   }
 }

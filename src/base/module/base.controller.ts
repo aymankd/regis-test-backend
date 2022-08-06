@@ -1,6 +1,7 @@
-import { Body, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { BaseRepository } from './base.repository';
 import { BaseService } from './base.service';
+import { CollectionDto } from '@forlagshuset/nestjs-mongoose-paginate';
 
 export abstract class BaseController<
   Base,
@@ -29,7 +30,7 @@ export abstract class BaseController<
   }
 
   @Get()
-  findAll(filter: any = {}) {
+  findAll(@Query() filter: CollectionDto = {}) {
     return this.superBaseService.findAll(filter);
   }
 
